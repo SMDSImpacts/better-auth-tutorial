@@ -23,18 +23,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const signInSchema = z.object({
   email: z.email({ message: "Please enter a valid email" }),
   password: z.string().min(1, { message: "Password is required" }),
-  rememberMe: z.boolean().optional(),
-});
+  rememberMe: z.boolean().optional(),  
+})
+
 
 type SignInValues = z.infer<typeof signInSchema>;
 
@@ -55,7 +58,24 @@ export function SignInForm() {
   });
 
   async function onSubmit({ email, password, rememberMe }: SignInValues) {
-    // TODO: Handle sign in
+    setError(null);
+    setLoading(true);
+
+    const {error} = await authClient.signIn.email({
+      email,
+      password,
+      rememberMe,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setError(error.message || "Something went wrong. Please try again.");
+    }
+    else {
+      toast.success("Successfully signed in!");
+      router.push("/dashboard");
+    }
   }
 
   async function handleSocialSignIn(provider: "google" | "github") {
