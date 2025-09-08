@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import prisma from '@/lib/prisma'
+import { sendmail } from './email'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -8,6 +9,17 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+  },
+  emailVerification:{
+    sendOnSignup: true,
+    autoSignAfterVerification: true,
+    async sendVerificationEmail({ user, url}) {
+      await sendmail({
+        to: user.email,
+        subject: 'Verify your email',
+        text: `Click here to verify your email: ${url}`,
+      })
+    }
   },
   user: {
     additionalFields: {
