@@ -9,5 +9,16 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  user: {
+    additionalFields: {
+      role: {
+        type: 'string',
+        input: false,
+      }
+    }
+  },
   trustedOrigins: ['https://fluffy-memory-v7q5rxqj7vvcxq9.github.dev'],
 })
+
+export type Session = typeof auth.$Infer.Session;
+export type User = typeof auth.$Infer.Session.user;
