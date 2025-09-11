@@ -23,13 +23,14 @@ export function ResendVerificationButton({
     const { error } = await authClient.sendVerificationEmail({
       email,
       callbackURL: "/email-verified",
-    })
+    });
+
     setIsLoading(false);
 
     if (error) {
-      setError(error.message || "something went wrong");
+      setError(error.message || "Something went wrong");
     } else {
-      setSuccess("verification email sent successfully");
+      setSuccess("Verification email sent successfully");
     }
   }
 

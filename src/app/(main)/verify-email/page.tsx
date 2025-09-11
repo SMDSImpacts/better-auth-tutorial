@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { ResendVerificationButton } from "./resend-verification-button";
 import { getServerSession } from "@/lib/get-session";
+import type { Metadata } from "next";
 import { redirect, unauthorized } from "next/navigation";
+import { ResendVerificationButton } from "./resend-verification-button";
 
 export const metadata: Metadata = {
   title: "Verify Email",
@@ -13,8 +13,7 @@ export default async function VerifyEmailPage() {
 
   if (!user) unauthorized();
 
-  if (user.emailVerified) redirect('/dashboard');
-
+  if (user.emailVerified) redirect("/dashboard");
 
   return (
     <main className="flex flex-1 items-center justify-center px-4 text-center">

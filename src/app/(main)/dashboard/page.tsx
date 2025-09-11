@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserAvatar } from "@/components/user-avatar";
-import { getServerSession } from "@/lib/get-session";
 import { User } from "@/lib/auth";
+import { getServerSession } from "@/lib/get-session";
 import { format } from "date-fns";
 import { CalendarDaysIcon, MailIcon, ShieldIcon, UserIcon } from "lucide-react";
 import type { Metadata } from "next";
@@ -34,7 +34,7 @@ export default async function DashboardPage() {
           <p className="text-muted-foreground">
             Welcome back! Here&apos;s your account overview.
           </p>
-        </div>        
+        </div>
         {!user.emailVerified && <EmailVerificationAlert />}
         <ProfileInformation user={user} />
       </div>
@@ -42,12 +42,11 @@ export default async function DashboardPage() {
   );
 }
 
-interface profileInformationProps {
+interface ProfileInformationProps {
   user: User;
 }
 
-function ProfileInformation({user}: profileInformationProps) {
-  
+function ProfileInformation({ user }: ProfileInformationProps) {
   return (
     <Card>
       <CardHeader>

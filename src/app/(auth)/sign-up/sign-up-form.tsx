@@ -26,6 +26,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const signUpSchema = z
@@ -61,16 +62,18 @@ export function SignUpForm() {
 
   async function onSubmit({ email, password, name }: SignUpValues) {
     setError(null);
-    
+
     const { error } = await authClient.signUp.email({
       email,
       password,
       name,
-      callbackURL: "/dashboard",
-    })
+      callbackURL: "/email-verified",
+    });
+
     if (error) {
       setError(error.message || "Something went wrong");
     } else {
+      toast.success("Signed up successfully");
       router.push("/dashboard");
     }
   }
