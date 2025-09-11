@@ -8,7 +8,7 @@ interface SendEnailVals {
     text: string;
 }
 
-export async function sendmail({ to, subject, text }: SendEnailVals) {
+export async function sendEmail({ to, subject, text }: SendEnailVals) {
     await resend.emails.send({
         from: 'engrsamchukwuemeka@gmail.com',
         to,
