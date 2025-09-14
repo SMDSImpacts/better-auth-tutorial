@@ -6,3 +6,9 @@ import { auth } from "./auth";
 export const authClient = createAuthClient({
   plugins: [inferAdditionalFields<typeof auth>(), nextCookies()],
 });
+
+const signIn = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+  });
+};

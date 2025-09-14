@@ -6,6 +6,7 @@ import prisma from "./prisma";
 import { passwordSchema } from "./validation";
 
 export const auth = betterAuth({
+  trustedOrigins: ['https://fluffy-memory-v7q5rxqj7vvcxq9.github.dev', 'https://better-auth-tutorial-six.vercel.app'],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
